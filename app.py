@@ -48,7 +48,9 @@ def add_record():
         else:
             rent_amount_yet_to_be_paid = None  # Handle invalid size
 
-        rent_time_period_to = rent_time_period_from + timedelta(days=365)
+        date_str = '2025/03/31'
+        date_obj = datetime.strptime(date_str, '%Y/%m/%d')
+        rent_time_period_to = date_obj.strftime('%Y-%m-%d')
 
         cursor.execute("INSERT INTO locker_data (Name, address, aadhar_number, phone_number, joint_holder, size, locker_no, deposit_amount_paid, deposit_amount_yet_to_pay, rent_amount_paid, rent_amount_yet_to_be_paid,rent_time_period_from,rent_time_period_to,rent_paid_date) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s, %s,%s)",
                        (name, address, aadhar_number, phone_number, joint_holder, size, locker_no, deposit_amount_paid, deposit_amount_yet_to_pay, rent_amount_paid, rent_amount_yet_to_be_paid,rent_time_period_from,rent_time_period_to,rent_paid_date))
@@ -133,7 +135,9 @@ def update_record(id):
             else:
                 rent_amount_yet_to_be_paid = None  # Handle invalid size
 
-            rent_time_period_to = datetime.strptime('31/03/2024','%Y-%m-%d').date()
+            date_str = '2025/03/31'
+            date_obj = datetime.strptime(date_str, '%Y/%m/%d')
+            rent_time_period_to = date_obj.strftime('%Y-%m-%d')
 
             cursor.execute("UPDATE locker_data SET Name = %s, address = %s, aadhar_number = %s, phone_number = %s, joint_holder = %s, size = %s, locker_no = %s, deposit_amount_paid = %s, deposit_amount_yet_to_pay = %s, rent_amount_paid = %s, rent_amount_yet_to_be_paid = %s ,rent_time_period_from=%s,rent_time_period_to=%s,rent_paid_date=%s WHERE id = %s",
                            (name, address, aadhar_number, phone_number, joint_holder, size, locker_no, deposit_amount_paid, deposit_amount_yet_to_pay, rent_amount_paid, rent_amount_yet_to_be_paid,rent_time_period_from,rent_time_period_to,rent_paid_date,id))
