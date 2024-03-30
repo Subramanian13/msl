@@ -94,7 +94,7 @@
     </header>
     <br>
     <h1>Update Locker Record</h1>
-    <form action="{{ url_for('update_record', id=data[7]) }}" method="POST">
+    <form action="{{ url_for('update_record', id=data[0]) }}" method="POST">
         <label for="Name">Name:</label><br>
         <input type="text" id="Name" name="Name" value="{{ data[1] }}"><br>
         <label for="address">Address:</label><br>
