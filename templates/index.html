@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home</title>
+    <style>
+        /* Resetting default margin and padding */
+/* Resetting default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+header {
+    background-color: #070707;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.options {
+    margin-top: 20px;
+}
+
+.options ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.options ul li {
+    margin-bottom: 10px;
+}
+
+.options ul li a {
+    display: block;
+    background-color: #4883c3; /* Blue */
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 3px;
+    width: 150px; /* Reduced width */
+    margin: 0 auto; /* Center the buttons */
+    transition: background-color 0.3s ease;
+}
+
+.options ul li a:hover {
+    background-color: #0056b3; /* Darker Blue */
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Meenakshi Safety Lockers</h1>
+    </header>
+    <main>
+        <section class="options">
+            <h2>Manage Records</h2>
+            <br><br>
+            <ul>
+                <li><a href="{{ url_for('add_record_form') }}">Add Record</a></li>
+                <li><a href="{{ url_for('display_records') }}">Display Records</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

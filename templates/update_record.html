@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Record</title>
+</head>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+    }
+
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+    }
+
+    nav a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    form {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    input[type="date"],
+    button {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-image: url('data:image/svg+xml;utf8,<svg fill="#888" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+        background-repeat: no-repeat;
+        background-position: right 10px top 50%;
+        background-size: 24px;
+    }
+
+    button {
+        background-color: #4883c3;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #3571a0;
+    }
+    
+</style>
+<body>
+    <header>
+        <h1>Meenakshi Safety Lockers</h1>
+        <nav>
+            <a href="{{ url_for('home') }}">Back to home</a>
+        </nav>
+    </header>
+    <br>
+    <h1>Update Locker Record</h1>
+    <form action="{{ url_for('update_record', id=data[7]) }}" method="POST">
+        <label for="Name">Name:</label><br>
+        <input type="text" id="Name" name="Name" value="{{ data[1] }}"><br>
+        <label for="address">Address:</label><br>
+        <input type="text" id="address" name="address" value="{{ data[2] }}"><br>
+        <label for="aadhar_number">Aadhar Number:</label><br>
+        <input type="text" id="aadhar_number" name="aadhar_number" value="{{ data[3] }}"><br>
+        <label for="phone_number">Phone Number:</label><br>
+        <input type="text" id="phone_number" name="phone_number" value="{{ data[4] }}"><br>
+        <label for="joint_holder">Joint Holder:</label><br>
+        <input type="text" id="joint_holder" name="joint_holder" value="{{ data[5] }}"><br>
+        <label for="size">Size:</label><br>
+        <select id="size" name="size">
+            <option value="S" {% if data[6] == 'S' %} selected {% endif %}>Small</option>
+            <option value="M" {% if data[6] == 'M' %} selected {% endif %}>Medium</option>
+            <option value="L" {% if data[6] == 'L' %} selected {% endif %}>Large</option>
+            <option value="XL" {% if data[6] == 'XL' %} selected {% endif %}>Extra Large</option>
+        </select><br>
+        <label for="locker_no">Locker Number:</label><br>
+        <input type="text" id="locker_no" name="locker_no" value="{{ data[7] }}"><br>
+        <label for="deposit_amount_paid">Deposit Amount Paid:</label><br>
+        <input type="number" id="deposit_amount_paid" name="deposit_amount_paid" value="{{ data[8] }}"><br>
+        <label for="rent_amount_paid">Rent Amount Paid:</label><br>
+        <input type="number" id="rent_amount_paid" name="rent_amount_paid" value="{{ data[10] }}"><br>
+        <label for="rent_time_period_from">Rent time period from:</label><br>
+        <input type="date" id="rent_time_period_from" name="rent_time_period_from" value="{{ data[12] }}"><br>
+        <!-- <label for="rent_time_period_to">Rent time period to:</label><br>
+        <input type="date" id="rent_time_period_to" name="rent_time_period_to" value="{{ data[13] }}"><br> -->
+        <label for="rent_paid_date">Rent Paid Date:</label><br>
+        <input type="date" id="rent_paid_date" name="rent_paid_date" value="{{ data[14] }}"><br><br>
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>

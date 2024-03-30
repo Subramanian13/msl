@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Records</title>
+    <style>
+        /* Resetting default margin and padding */
+/* Resetting default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.record-container {
+    display: block;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+}
+
+.filters{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    gap: 30px;
+}
+
+.record {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+}
+
+.record h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.record p {
+    margin-bottom: 10px;
+}
+
+.record form {
+    margin-top: 10px;
+}
+
+.record form button {
+    background-color: #4883c3;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px; /* Increased button size */
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: large;
+}
+
+.record form button:hover {
+    background-color: #eb7171;
+    color: white;
+}
+/* Search input and button */
+.record-search {
+    margin-bottom: 20px;
+}
+
+.record-search input[type="text"] {
+    padding: 12px; /* Increased padding */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 250px; /* Increased width */
+    margin-right: 10px;
+    font-size: 16px; /* Increased font size */
+}
+
+.record-search button {
+    padding: 12px 20px; /* Increased padding */
+    border-radius: 5px;
+    border: none;
+    background-color: #4883c3;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px; /* Increased font size */
+}
+
+.record-search button:hover {
+    background-color: #eb7171;
+}
+
+/* Sort dropdown */
+.record-sort select {
+    padding: 12px 20px; /* Increased padding */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+}
+
+.record-sort select:focus {
+    outline: none;
+}
+
+.record-sort select option {
+    padding: 12px; /* Increased padding */
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Meenakshi Safety Lockers</h1>
+        <nav>
+            <a href="{{ url_for('home') }}">Back to home</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="filters">
+            <div class="record-search">
+                <input type="text" id="searchInput" placeholder="Search by Name / Locker No">
+                <button onclick="searchRecords()">Search</button>
+            </div>
+            <div class="record-sort">
+                <select onchange="sortRecords(this.value)">
+                    <option value="lockerNo">Sort by Locker No</option>
+                    <option value="name">Sort by Name</option>
+                </select>
+            </div>
+        </div>
+        <center>
+        <div class="record-container">
+            {% for record in data %}
+            <div class="record">
+                <h2>{{ record[1] }}</h2>
+                <p>Locker No:{{ record[7] }}</p>
+                <div class="record-actions">
+                    <form action="{{ url_for('view_record', id=record[0]) }}" method="get" style="display:inline;">
+                        <button type="submit">View</button>
+                    </form>
+                    <form action="{{ url_for('update_record', id=record[0]) }}" method="get" style="display:inline;">
+                        <button type="submit">Update</button>
+                    </form>
+                    <form action="{{ url_for('delete_record', id=record[0]) }}" method="post" style="display:inline;">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        </center>
+    </main>
+    <script>
+
+        function searchRecords() {
+            var input, filter, records, record, txtValue;
+            input = document.getElementById('searchInput');
+            filter = input.value.toUpperCase();
+            records = document.getElementsByClassName('record');
+            
+            for (var i = 0; i < records.length; i++) {
+                record = records[i];
+                var name = record.getElementsByTagName('h2')[0].textContent || record.getElementsByTagName('h2')[0].innerText;
+                var lockerNo = record.querySelector('p').textContent.trim(); // Get locker number
+                // Check if either name or locker number contains the filter text
+                if (name.toUpperCase().indexOf(filter) > -1 || lockerNo.toUpperCase().indexOf(filter) > -1) {
+                    record.style.display = '';
+                } else {
+                    record.style.display = 'none';
+                }
+            }
+        }
+
+
+        function sortRecords(option) {
+            var records = document.querySelectorAll('.record');
+            var sortedRecords = Array.from(records).slice().sort(function(a, b) {
+                var valueA, valueB;
+                if (option === "lockerNo") {
+                    valueA = a.querySelector('p').textContent.trim();
+                    valueB = b.querySelector('p').textContent.trim();
+                } else {
+                    valueA = a.querySelector('h2').textContent.trim();
+                    valueB = b.querySelector('h2').textContent.trim();
+                }
+                return valueA.localeCompare(valueB);
+            });
+            var container = document.querySelector('.record-container');
+            sortedRecords.forEach(function(record) {
+                container.appendChild(record);
+            });
+        }
+    </script>
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Record</title>
+    <style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    display:block;
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px; /* Increased font size */
+}
+
+.record {
+    background-color: #cff3e4; /* Changed background color */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.record-info p {
+    margin-bottom: 10px;
+    font-size: 18px; /* Increased font size */
+}
+
+.record-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.record-actions form {
+    display: inline;
+}
+
+.record-actions button {
+    background-color: #4883c3;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px; /* Increased font size */
+}
+
+.record-actions button:hover {
+    background-color: #eb7171;
+    color: white;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #4883c3;
+    text-decoration: none;
+    font-size: 16px; /* Increased font size */
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Meenakshi Safety Lockers</h1>
+        <nav>
+            <br>
+            <a href="{{ url_for('home') }}">Back to home</a>
+            <br>
+            <a href="{{ url_for('display_records') }}">Back to records</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Record - Locker Number : {{ record[7] }}</h1>
+        <div class="record">
+            <div class="record-info">
+                <p><strong>Name:</strong> {{ record[1] }}</p>
+                <p><strong>Address:</strong> {{ record[2] }}</p>
+                <p><strong>Aadhar Number:</strong> {{ record[3] }}</p>
+                <p><strong>Phone Number:</strong> {{ record[4] }}</p>
+                <p><strong>Joint Holder:</strong> {{ record[5] }}</p>
+                <p><strong>Size:</strong> {{ record[6] }}</p>
+                <p><strong>Locker Number:</strong> {{ record[7] }}</p>
+                <p><strong>Deposit Amount Paid:</strong> {{ record[8] }}</p>
+                <p><strong>Deposit Amount Yet to Pay:</strong> {{ record[9] }}</p>
+                <p><strong>Rent Amount Paid:</strong> {{ record[10] }}</p>
+                <p><strong>Rent Amount Yet to Be Paid:</strong> {{ record[11] }}</p>
+                <p><strong>Rent Time Period From:</strong> {{ record[12] }}</p>
+                <p><strong>Rent Time Period To:</strong> {{ record[13] }}</p>
+                <p><strong>Rent Paid Date:</strong> {{ record[14] }}</p>
+            </div>
+            <div class="record-actions">
+                <!-- Update button -->
+                <form action="{{ url_for('update_record', id=record[0]) }}" method="get">
+                    <button type="submit">Update</button>
+                </form>
+                <!-- Delete button -->
+                <form action="{{ url_for('delete_record', id=record[0]) }}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+        <!-- <a href="{{ url_for('display_records') }}" class="back-link">Back to Records</a> -->
+    </div>
+</body>
+</html>
